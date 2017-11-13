@@ -1,0 +1,83 @@
+CREATE TABLE WritingGroups (
+    GroupName varchar(20) NOT NULL,
+    HeadWriter varchar(20),
+    YearFormed integer check (YearFormed between 0 and 9999999999999),
+    Subject varchar(20),
+    PRIMARY KEY (GroupName)
+);
+
+CREATE TABLE Publishers (
+    PublisherName varchar(20) NOT NULL,
+    PublisherAddress varchar(30),
+    PublisherPhone varchar(12),
+    PublisherEmail varchar(25),
+    PRIMARY KEY (PublisherName)
+);
+
+CREATE TABLE Books (
+    GroupName varchar(20),
+    BookTitle varchar(20) NOT NULL,
+    PublisherName varchar(20),
+    YearPublished integer check (YearPublished between 0 and 9999999999999),
+    NumberPages integer check (NumberPages between 0 and 9999999999999),
+    PRIMARY KEY (BookTitle),
+    CONSTRAINT FK_BooksGroups FOREIGN KEY (GroupName)
+    REFERENCES WritingGroups(GroupName),
+    CONSTRAINT FK_BooksPublishers FOREIGN KEY (PublisherName)
+    REFERENCES Publishers(PublisherName),
+    CONSTRAINT UC_Books UNIQUE (BookTitle,PublisherName)
+);
+
+INSERT INTO WritingGroups
+VALUES
+('BTS', 'Rap Monster', 1995, 'Pop'),
+('Gfriend', 'Sowon', 1955, 'Dance'),
+('Girls Day', 'Sojin', 1947, 'Romance'),
+('Twice', 'Nayeon', 1978, 'Tragedy'),
+('Big Bang', 'GDragon', 1999, 'Medieval'),
+('Girls Generation', 'Taeyeon', 2001, 'Comedy'),
+('GOT7', 'JB', 1939, 'Action'),
+('EXO', 'Suho', 1940, 'Thriller'),
+('Blackpink', 'Jisoo', 1966, 'Nonfiction'),
+('Mamamoo', 'Solar', 1958, 'Fiction');
+
+INSERT INTO Publishers
+VALUES
+('Adriana Lima', '420 W Cool Ave', '626-336-4594', 'adrianalima@email.com'),
+('Candice Swanepoel', '111 One Ave', '523-547-8547', 'candiceswan@email.com'),
+('Alessandra Ambrosio', '5201 Mimi Dr', '759-836-8463', 'alessandraa@email.com'),
+('Behati Prinsloo', '321 American St', '857-029-9578', 'behatiprins@email.com'),
+('Sara Sampaio', '626 Tomorrowland Dr', '890-735-5030', 'sarasamps@email.com'),
+('Stella Maxwell', '5201 Omega Ave', '329-231-5467', 'stellamaxwell@email.com'),
+('Elsa Hosk', '9940 Home St', '420-544-3234', 'elsahosk@email.com'),
+('Lily Aldridge', '102 Fairy Ave', '059-292-0593', 'lilyald@email.com'),
+('Josephine Skriver', '323 Data St', '094-232-3942', 'josskriver@email.com'),
+('Romee Strijd', '1665 Echo Wy', '452-234-1517', 'romees@email.com');
+
+INSERT INTO Books
+VALUES
+('BTS', 'Iron Man', 'Romee Strijd', 2000, 203),
+('Gfriend', 'Captain America', 'Josephine Skriver', 2003, 495),
+('Girls Day', 'Black Widow', 'Lily Aldridge', 2002, 506),
+('Twice', 'Hulk', 'Elsa Hosk', 2030, 160),
+('Big Bang', 'Spiderman', 'Stella Maxwell', 2011, 1004),
+('Girls Generation', 'Deadpool', 'Sara Sampaio', 2015, 969),
+('GOT7', 'Wolverine', 'Behati Prinsloo', 2017, 545),
+('EXO', 'Thor', 'Alessandra Ambrosio', 2019, 1432),
+('Blackpink', 'Loki', 'Candice Swanepoel', 2007, 460),
+('Mamamoo', 'Magneto', 'Adriana Lima', 2022, 1293),
+('BTS', 'Thing', 'Behati Prinsloo', 2014, 837),
+('Gfriend', 'Gambit', 'Sara Sampaio', 2008, 325),
+('Girls Day', 'Medusa', 'Stella Maxwell', 2019, 1401),
+('Twice', 'Storm', 'Elsa Hosk', 2059, 154),
+('Big Bang', 'Ultron', 'Lily Aldridge', 2069, 985),
+('Girls Generation', 'Green Goblin', 'Josephine Skriver', 2027, 1020),
+('GOT7', 'Dr Doom', 'Romee Strijd', 2037, 438),
+('EXO', 'Luke Cage', 'Adriana Lima', 2055, 2043),
+('Blackpink', 'Daredevil', 'Candice Swanepoel', 2034, 323),
+('Mamamoo', 'Ronan', 'Alessandra Ambrosio', 2067, 420),
+('Girls Day', 'Mystique', 'Elsa Hosk', 2099, 777),
+('GOT7', 'Thanos', 'Romee Strijd', 2087, 1284),
+('Blackpink', 'Captain Marvel', 'Adriana Lima', 2046, 1000);
+
+
